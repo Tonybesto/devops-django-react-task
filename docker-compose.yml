@@ -1,14 +1,12 @@
 version: '3'
-services:
-  frontend:
-    image: tony06/stage2_frontend:latest
-    depends_on:
-      - backend
-    ports:
-      - 3000:80
 
-  backend:
-    image: tony06/stage2_backend:latest
+services:
+  api:
+    build: ./api        
     ports:
       - "8000:8000"
-    command: python manage.py runserver 0.0.0.0:8000
+
+  web:
+    build: ./frontend
+    ports:
+      - "3000:3000"

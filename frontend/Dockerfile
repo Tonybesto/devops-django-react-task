@@ -1,19 +1,17 @@
-FROM node:10-alpine as build
-
-COPY package.json  ./
-
-RUN npm install && mkdir /frontend && mv ./node_modules ./frontend
+FROM node:16-alpine
 
 WORKDIR /frontend
 
+COPY package*.json ./
+
 COPY . .
+
+RUN npm i 
 
 RUN npm run build
 
+# ENV NODE_ENV production
 
-FROM nginx:alpine
-WORKDIR /usr/share/nginx/html
-RUN rm -rf ./*
-COPY --from=build /frontend/build .
-EXPOSE 3000 80
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+EXPOSE 3000
+
+CMD ["npx", "serve", "build"]

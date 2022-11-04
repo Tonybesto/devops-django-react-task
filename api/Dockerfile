@@ -1,16 +1,25 @@
 ## find a way to install libpq-dev and python3-dev on the machines
-FROM python:3.9-alpine
+FROM python:3.8.3-alpine
 
-RUN mkdir /backend
+ENV DockerHOME=/home/app/webapp
 
-COPY . /backend/
+RUN mkdir -p $DockerHOME
 
-WORKDIR /backend
+WORKDIR $DockerHOME
+
+ENV PYTHONDONTWRITEBYTECODE 1
+
+ENV PYTHONUNBUFFERED 1
+
+RUN pip install --upgrade pip
+
+COPY . $DockerHOME         
 
 RUN pip install -r requirements.txt
 
 EXPOSE 8000
 
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 
 #FROM ubuntu:20.04
 
