@@ -25,4 +25,5 @@ npm run build
 ```
 
 It should look like this if successful
+
 ![HNG Task](HNG%20task2.PNG)
